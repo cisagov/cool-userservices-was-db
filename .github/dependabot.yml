@@ -30,7 +30,7 @@ updates:
 
   - directory: /
     # ignore:
-    #   # Managed by cisagov/skeleton-tf-module
+    #   # Managed by cisagov/cool-userservices-was-db
     #   - dependency-name: hashicorp/aws
     package-ecosystem: terraform
     schedule:
@@ -38,7 +38,7 @@ updates:
 
   - directory: /examples/basic_usage
     # ignore:
-    #   # Managed by cisagov/skeleton-tf-module
+    #   # Managed by cisagov/cool-userservices-was-db
     #   - dependency-name: hashicorp/aws
     package-ecosystem: terraform
     schedule:
