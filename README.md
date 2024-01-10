@@ -2,33 +2,18 @@
 
 [![GitHub Build Status](https://github.com/cisagov/cool-userservices-was-db/workflows/build/badge.svg)](https://github.com/cisagov/cool-userservices-was-db/actions)
 
-This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) [Terraform
-module](https://www.terraform.io/docs/modules/index.html) GitHub
-repository started.  This skeleton project contains [licensing
-information](LICENSE), as well as [pre-commit
-hooks](https://pre-commit.com) and
-[GitHub Actions](https://github.com/features/actions) configurations
-appropriate for the major languages that we use.
+This is a Terraform deployment for creating the Web Application Scanning (WAS)
+database table in the COOL User Services account.
 
-See [here](https://www.terraform.io/docs/modules/index.html) for more
-details on Terraform modules and the standard module structure.
+## Pre-requisites ##
 
-## Usage ##
-
-```hcl
-module "example" {
-  source = "github.com/cisagov/cool-userservices-was-db"
-
-  aws_region            = "us-west-1"
-  aws_availability_zone = "b"
-  subnet_id             = "subnet-0123456789abcdef0"
-}
-```
-
-## Examples ##
-
-- [Basic usage](https://github.com/cisagov/cool-userservices-was-db/tree/develop/examples/basic_usage)
+- [Terraform](https://www.terraform.io/) installed on your system.
+- An accessible AWS S3 bucket to store Terraform state
+  (specified in [backend.tf](backend.tf)).
+- An accessible AWS DynamoDB database to store the Terraform state lock
+  (specified in [backend.tf](backend.tf)).
+- Access to all of the Terraform remote states specified in
+  [remote_states.tf](remote_states.tf).
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements ##
@@ -43,6 +28,8 @@ module "example" {
 | Name | Version |
 |------|---------|
 | aws | ~> 4.9 |
+| aws.userservicesprovisionaccount | ~> 4.9 |
+| terraform | n/a |
 
 ## Modules ##
 
@@ -52,42 +39,48 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_instance.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance) | resource |
-| [aws_ami.example](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ami) | data source |
-| [aws_default_tags.default](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/default_tags) | data source |
+| [aws_dynamodb_table.was](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
+| [aws_iam_policy.provisionwasdb_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role_policy_attachment.provisionwasdb_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_caller_identity.userservices](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
+| [aws_iam_policy_document.provisionwasdb_policy_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [terraform_remote_state.master](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
+| [terraform_remote_state.userservices](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| ami\_owner\_account\_id | The ID of the AWS account that owns the Example AMI, or "self" if the AMI is owned by the same account as the provisioner. | `string` | `"self"` | no |
-| aws\_availability\_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.). | `string` | `"a"` | no |
 | aws\_region | The AWS region to deploy into (e.g. us-east-1). | `string` | `"us-east-1"` | no |
-| subnet\_id | The ID of the AWS subnet to deploy into (e.g. subnet-0123456789abcdef0). | `string` | n/a | yes |
+| partition\_key | The name of the DynamoDB table partition (hash) key.  It's best to choose an attribute with a wide range of values that is likely to have evenly distributed access patterns. | `string` | `"id"` | no |
+| partition\_key\_type | The data type of the DynamoDB table partition (hash) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
+| point\_in\_time\_recovery | Whether to enable point-in-time recovery for the DynamoDB table. | `bool` | `false` | no |
+| provisionwasdb\_policy\_description | The description to associate with the IAM policy that allows provisioning of the WAS DB in the User Services account. | `string` | `"Allows provisioning of the WAS DB in the User Services account."` | no |
+| provisionwasdb\_policy\_name | The name to assign the IAM policy that allows provisioning of the WAS DB in the User Services account. | `string` | `"ProvisionWASDB"` | no |
+| read\_capacity | The number of read units for the DynamoDB table. | `number` | `5` | no |
+| sort\_key | The name of the DynamoDB table sort (range) key. | `string` | `"name"` | no |
+| sort\_key\_type | The data type of the DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
+| table\_name | The name of the DynamoDB table. | `string` | `"was"` | no |
+| tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
+| write\_capacity | The number of write units for the DynamoDB table. | `number` | `5` | no |
 
 ## Outputs ##
 
 | Name | Description |
 |------|-------------|
-| arn | The EC2 instance ARN. |
-| availability\_zone | The AZ where the EC2 instance is deployed. |
-| id | The EC2 instance ID. |
-| private\_ip | The private IP of the EC2 instance. |
-| subnet\_id | The ID of the subnet where the EC2 instance is deployed. |
+| was\_db\_table | The WAS database table. |
 <!-- END_TF_DOCS -->
 
 ## Notes ##
 
 Running `pre-commit` requires running `terraform init` in every directory that
-contains Terraform code. In this repository, these are the main directory and
-every directory under `examples/`.
+contains Terraform code. In this repository, this is just the main directory.
 
-## New Repositories from a Skeleton ##
-
-Please see our [Project Setup guide](https://github.com/cisagov/development-guide/tree/develop/project_setup)
-for step-by-step instructions on how to start a new repository from
-a skeleton. This will save you time and effort when configuring a
-new repository!
+Your first `terraform apply` will fail with an `AccessDeniedException`.  This is
+expected since the required policy is not attached to the account provisioning
+role until after the first `terraform apply`.  Simply run `terraform apply`
+again and it should succeed.
 
 ## Contributing ##
 
