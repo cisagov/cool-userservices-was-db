@@ -57,6 +57,30 @@ variable "read_capacity" {
   type        = number
 }
 
+variable "read_only_policy_role_description" {
+  default     = "Allows read-only access to the WAS DB in the User Services account."
+  description = "The description to associate with the IAM policy and role that allows read-only access to the WAS DB in the User Services account."
+  type        = string
+}
+
+variable "read_only_policy_role_name" {
+  default     = "WAS-DB-ReadOnly"
+  description = "The name to assign the IAM policy and role that allows read-only access to the WAS DB in the User Services account."
+  type        = string
+}
+
+variable "read_write_policy_role_description" {
+  default     = "Allows read-write access to the WAS DB in the User Services account."
+  description = "The description to associate with the IAM policy and role that allows read-write access to the WAS DB in the User Services account."
+  type        = string
+}
+
+variable "read_write_policy_role_name" {
+  default     = "WAS-DB-ReadWrite"
+  description = "The name to assign the IAM policy and role that allows read-write access to the WAS DB in the User Services account."
+  type        = string
+}
+
 variable "sort_key" {
   default     = "name"
   description = "The name of the DynamoDB table sort (range) key."
