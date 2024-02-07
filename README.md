@@ -28,6 +28,7 @@ database table in the COOL User Services account.
 | Name | Version |
 |------|---------|
 | aws | ~> 4.9 |
+| aws.organizationsreadonly | ~> 4.9 |
 | aws.userservicesprovisionaccount | ~> 4.9 |
 | terraform | n/a |
 
@@ -41,10 +42,20 @@ No modules.
 |------|------|
 | [aws_dynamodb_table.was](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_iam_policy.provisionwasdb_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.read_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_policy.read_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role.read_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role.read_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
 | [aws_iam_role_policy_attachment.provisionwasdb_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.read_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
+| [aws_iam_role_policy_attachment.read_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 | [aws_caller_identity.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_caller_identity.userservices](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) | data source |
 | [aws_iam_policy_document.provisionwasdb_policy_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.read_only_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.read_write_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_iam_policy_document.users_account_assume_role_doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_organizations_organization.cool](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/organizations_organization) | data source |
 | [terraform_remote_state.master](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 | [terraform_remote_state.userservices](https://registry.terraform.io/providers/hashicorp/terraform/latest/docs/data-sources/remote_state) | data source |
 
@@ -59,6 +70,10 @@ No modules.
 | provisionwasdb\_policy\_description | The description to associate with the IAM policy that allows provisioning of the WAS DB in the User Services account. | `string` | `"Allows provisioning of the WAS DB in the User Services account."` | no |
 | provisionwasdb\_policy\_name | The name to assign the IAM policy that allows provisioning of the WAS DB in the User Services account. | `string` | `"ProvisionWASDB"` | no |
 | read\_capacity | The number of read units for the DynamoDB table. | `number` | `5` | no |
+| read\_only\_policy\_role\_description | The description to associate with the IAM policy and role that allows read-only access to the WAS DB in the User Services account. | `string` | `"Allows read-only access to the WAS DB in the User Services account."` | no |
+| read\_only\_policy\_role\_name | The name to assign the IAM policy and role that allows read-only access to the WAS DB in the User Services account. | `string` | `"WAS-DB-ReadOnly"` | no |
+| read\_write\_policy\_role\_description | The description to associate with the IAM policy and role that allows read-write access to the WAS DB in the User Services account. | `string` | `"Allows read-write access to the WAS DB in the User Services account."` | no |
+| read\_write\_policy\_role\_name | The name to assign the IAM policy and role that allows read-write access to the WAS DB in the User Services account. | `string` | `"WAS-DB-ReadWrite"` | no |
 | sort\_key | The name of the DynamoDB table sort (range) key. | `string` | `"name"` | no |
 | sort\_key\_type | The data type of the DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
 | table\_name | The name of the DynamoDB table. | `string` | `"was"` | no |
@@ -69,6 +84,8 @@ No modules.
 
 | Name | Description |
 |------|-------------|
+| read\_only\_role | The WAS database read-only role. |
+| read\_write\_role | The WAS database read-write role. |
 | was\_db\_table | The WAS database table. |
 <!-- END_TF_DOCS -->
 
