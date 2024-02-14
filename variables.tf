@@ -40,15 +40,15 @@ variable "point_in_time_recovery" {
 }
 
 variable "provisionwasdb_policy_description" {
-  type        = string
-  description = "The description to associate with the IAM policy that allows provisioning of the WAS DB in the User Services account."
   default     = "Allows provisioning of the WAS DB in the User Services account."
+  description = "The description to associate with the IAM policy that allows provisioning of the WAS DB in the User Services account."
+  type        = string
 }
 
 variable "provisionwasdb_policy_name" {
-  type        = string
-  description = "The name to assign the IAM policy that allows provisioning of the WAS DB in the User Services account."
   default     = "ProvisionWASDB"
+  description = "The name to assign the IAM policy that allows provisioning of the WAS DB in the User Services account."
+  type        = string
 }
 
 variable "read_capacity" {
