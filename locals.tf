@@ -37,4 +37,7 @@ locals {
 
   # The User Services account ID
   userservices_account_id = data.aws_caller_identity.userservices.account_id
+
+  stakeholders_table_arn  = var.stakeholders_table_sort_key == "" ? aws_dynamodb_table.stakeholders_without_sort_key[0].arn : aws_dynamodb_table.stakeholders_with_sort_key[0].arn
+  stakeholders_table_name = var.stakeholders_table_sort_key == "" ? aws_dynamodb_table.stakeholders_without_sort_key[0].name : aws_dynamodb_table.stakeholders_with_sort_key[0].name
 }
