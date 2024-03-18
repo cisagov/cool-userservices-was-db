@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "read_only_doc" {
     ]
 
     resources = [
-      aws_dynamodb_table.was.arn,
+      local.stakeholders_table_arn,
     ]
   }
 
@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "read_only_doc" {
     ]
 
     resources = [
-      replace(aws_dynamodb_table.was.arn, "table/${aws_dynamodb_table.was.name}", "table/*"),
+      replace(local.stakeholders_table_arn, "table/${local.stakeholders_table_name}", "table/*"),
     ]
   }
 
