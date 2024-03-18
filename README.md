@@ -3,7 +3,7 @@
 [![GitHub Build Status](https://github.com/cisagov/cool-userservices-was-db/workflows/build/badge.svg)](https://github.com/cisagov/cool-userservices-was-db/actions)
 
 This is a Terraform deployment for creating the Web Application Scanning (WAS)
-database table in the COOL User Services account.
+database tables in the COOL User Services account.
 
 ## Pre-requisites ##
 
@@ -40,6 +40,8 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [aws_dynamodb_table.reports_with_sort_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
+| [aws_dynamodb_table.reports_without_sort_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_dynamodb_table.stakeholders_with_sort_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_dynamodb_table.stakeholders_without_sort_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_iam_policy.provisionwasdb_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -71,6 +73,14 @@ No modules.
 | read\_only\_policy\_role\_name | The name to assign the IAM policy and role that allows read-only access to the WAS DynamoDB tables in the User Services account. | `string` | `"WAS-DB-ReadOnly"` | no |
 | read\_write\_policy\_role\_description | The description to associate with the IAM policy and role that allows read-write access to the WAS DynamoDB tables in the User Services account. | `string` | `"Allows read-write access to the WAS DB in the User Services account."` | no |
 | read\_write\_policy\_role\_name | The name to assign the IAM policy and role that allows read-write access to the WAS DynamoDB tables in the User Services account. | `string` | `"WAS-DB-ReadWrite"` | no |
+| reports\_table\_name | The name of the reports DynamoDB table. | `string` | `"reports"` | no |
+| reports\_table\_partition\_key | The name of the reports DynamoDB table partition (hash) key.  It's best to choose an attribute with a wide range of values that is likely to have evenly distributed access patterns. | `string` | `"id"` | no |
+| reports\_table\_partition\_key\_type | The data type of the reports DynamoDB table partition (hash) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
+| reports\_table\_point\_in\_time\_recovery | Whether to enable point-in-time recovery for the reports DynamoDB table. | `bool` | `false` | no |
+| reports\_table\_read\_capacity | The number of read units for the reports DynamoDB table. | `number` | `5` | no |
+| reports\_table\_sort\_key | The name of the reports DynamoDB table sort (range) key. | `string` | `""` | no |
+| reports\_table\_sort\_key\_type | The data type of the reports DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
+| reports\_table\_write\_capacity | The number of write units for the reports DynamoDB table. | `number` | `5` | no |
 | stakeholders\_table\_name | The name of the stakeholders DynamoDB table. | `string` | `"stakeholders"` | no |
 | stakeholders\_table\_partition\_key | The name of the stakeholders DynamoDB table partition (hash) key.  It's best to choose an attribute with a wide range of values that is likely to have evenly distributed access patterns. | `string` | `"id"` | no |
 | stakeholders\_table\_partition\_key\_type | The data type of the stakeholders DynamoDB table partition (hash) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
@@ -87,6 +97,7 @@ No modules.
 |------|-------------|
 | read\_only\_role | The WAS database read-only role. |
 | read\_write\_role | The WAS database read-write role. |
+| reports\_table | The WAS reports DynamoDB table. |
 | stakeholders\_table | The WAS stakeholders DynamoDB table. |
 <!-- END_TF_DOCS -->
 
