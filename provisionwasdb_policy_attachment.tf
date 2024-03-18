@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # Attach to the ProvisionAccount role the IAM policy that allows
-# provisioning of the WAS DB in the User Services account.
+# provisioning of the WAS DynamoDB tables in the User Services account.
 # ------------------------------------------------------------------------------
 
 resource "aws_iam_role_policy_attachment" "provisionwasdb_policy_attachment" {

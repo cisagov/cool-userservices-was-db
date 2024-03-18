@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # Create the IAM policy that allows all of the additional permissions
-# necessary to provision the WAS DB in the User Services account.
+# necessary to provision the WAS DynamoDB tables in the User Services account.
 # ------------------------------------------------------------------------------
 
 data "aws_iam_policy_document" "provisionwasdb_policy_doc" {
