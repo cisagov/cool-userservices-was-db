@@ -16,29 +16,6 @@ variable "aws_region" {
   type        = string
 }
 
-variable "partition_key" {
-  default     = "id"
-  description = "The name of the DynamoDB table partition (hash) key.  It's best to choose an attribute with a wide range of values that is likely to have evenly distributed access patterns."
-  type        = string
-}
-
-variable "partition_key_type" {
-  default     = "S"
-  description = "The data type of the DynamoDB table partition (hash) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values."
-  type        = string
-
-  validation {
-    condition     = contains(["B", "BOOL", "BS", "L", "M", "N", "NS", "NULL", "S", "SS"], var.partition_key_type)
-    error_message = "The partition key type must be one of the following valid values: B, BOOL, BS, L, M, N, NS, NULL, S, SS"
-  }
-}
-
-variable "point_in_time_recovery" {
-  default     = false
-  description = "Whether to enable point-in-time recovery for the DynamoDB table."
-  type        = bool
-}
-
 variable "provisionwasdb_policy_description" {
   default     = "Allows provisioning of the WAS DB in the User Services account."
   description = "The description to associate with the IAM policy that allows provisioning of the WAS DB in the User Services account."
@@ -51,17 +28,6 @@ variable "provisionwasdb_policy_name" {
   type        = string
 }
 
-variable "read_capacity" {
-  default     = 5
-  description = "The number of read units for the DynamoDB table."
-  type        = number
-}
-
-variable "read_only_policy_role_description" {
-  default     = "Allows read-only access to the WAS DB in the User Services account."
-  description = "The description to associate with the IAM policy and role that allows read-only access to the WAS DB in the User Services account."
-  type        = string
-}
 
 variable "read_only_policy_role_name" {
   default     = "WAS-DB-ReadOnly"
@@ -81,27 +47,62 @@ variable "read_write_policy_role_name" {
   type        = string
 }
 
-variable "sort_key" {
-  default     = "name"
-  description = "The name of the DynamoDB table sort (range) key."
+variable "stakeholders_table_name" {
+  default     = "stakeholders"
+  description = "The name of the stakeholders DynamoDB table."
   type        = string
 }
 
-variable "sort_key_type" {
+variable "stakeholders_table_partition_key" {
+  default     = "id"
+  description = "The name of the stakeholders DynamoDB table partition (hash) key.  It's best to choose an attribute with a wide range of values that is likely to have evenly distributed access patterns."
+  type        = string
+}
+
+variable "stakeholders_table_partition_key_type" {
   default     = "S"
-  description = "The data type of the DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values."
+  description = "The data type of the stakeholders DynamoDB table partition (hash) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values."
   type        = string
 
   validation {
-    condition     = contains(["B", "BOOL", "BS", "L", "M", "N", "NS", "NULL", "S", "SS"], var.sort_key_type)
-    error_message = "The sort key type must be one of the following valid values: B, BOOL, BS, L, M, N, NS, NULL, S, SS"
+    condition     = contains(["B", "BOOL", "BS", "L", "M", "N", "NS", "NULL", "S", "SS"], var.stakeholders_table_partition_key_type)
+    error_message = "The partition key type must be one of the following valid values: B, BOOL, BS, L, M, N, NS, NULL, S, SS"
   }
 }
 
-variable "table_name" {
-  default     = "was"
-  description = "The name of the DynamoDB table."
+variable "stakeholders_table_point_in_time_recovery" {
+  default     = false
+  description = "Whether to enable point-in-time recovery for the stakeholders DynamoDB table."
+  type        = bool
+}
+
+variable "stakeholders_table_read_capacity" {
+  default     = 5
+  description = "The number of read units for the stakeholders DynamoDB table."
+  type        = number
+}
+
+variable "read_only_policy_role_description" {
+  default     = "Allows read-only access to the WAS DB in the User Services account."
+  description = "The description to associate with the IAM policy and role that allows read-only access to the WAS DynamoDB tables in the User Services account."
   type        = string
+}
+
+variable "stakeholders_table_sort_key" {
+  default     = ""
+  description = "The name of the stakeholders DynamoDB table sort (range) key."
+  type        = string
+}
+
+variable "stakeholders_table_sort_key_type" {
+  default     = "S"
+  description = "The data type of the stakeholders DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values."
+  type        = string
+
+  validation {
+    condition     = contains(["B", "BOOL", "BS", "L", "M", "N", "NS", "NULL", "S", "SS"], var.stakeholders_table_sort_key_type)
+    error_message = "The sort key type must be one of the following valid values: B, BOOL, BS, L, M, N, NS, NULL, S, SS"
+  }
 }
 
 variable "tags" {
@@ -110,9 +111,9 @@ variable "tags" {
   type        = map(string)
 }
 
-variable "write_capacity" {
+variable "stakeholders_table_write_capacity" {
   default     = 5
-  description = "The number of write units for the DynamoDB table."
+  description = "The number of write units for the stakeholders DynamoDB table."
   type        = number
 
 }
