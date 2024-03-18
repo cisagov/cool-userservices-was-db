@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
-# Create the IAM policy and role that allow read-write access to the WAS DB in
-# the User Services account.
+# Create the IAM policy and role that allow read-write access to the WAS
+# DynamoDB tables in the User Services account.
 # ------------------------------------------------------------------------------
 
 data "aws_iam_policy_document" "read_write_doc" {
@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "read_write_doc" {
   }
 
   # Allow the user to list all DynamoDB tables so that they can find and select
-  # the WAS DB when using the AWS web console.
+  # the WAS DynamoDB tables when using the AWS web console.
   statement {
     actions = [
       "dynamodb:ListTables",
@@ -36,8 +36,8 @@ data "aws_iam_policy_document" "read_write_doc" {
     ]
   }
 
-  # Allow the user to view metrics for the WAS DynamoDB table.  I have not yet
-  # found a way to limit this access to only the WAS table.
+  # Allow the user to view metrics for the WAS DynamoDB tables.  I have not yet
+  # found a way to limit this access to only the WAS tables.
   statement {
     actions = [
       "logs:DescribeMetricFilters",

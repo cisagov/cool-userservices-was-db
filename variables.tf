@@ -18,32 +18,32 @@ variable "aws_region" {
 
 variable "provisionwasdb_policy_description" {
   default     = "Allows provisioning of the WAS DB in the User Services account."
-  description = "The description to associate with the IAM policy that allows provisioning of the WAS DB in the User Services account."
+  description = "The description to associate with the IAM policy that allows provisioning of the WAS DynamoDB tables in the User Services account."
   type        = string
 }
 
 variable "provisionwasdb_policy_name" {
   default     = "ProvisionWASDB"
-  description = "The name to assign the IAM policy that allows provisioning of the WAS DB in the User Services account."
+  description = "The name to assign the IAM policy that allows provisioning of the WAS DynamoDB tables in the User Services account."
   type        = string
 }
 
 
 variable "read_only_policy_role_name" {
   default     = "WAS-DB-ReadOnly"
-  description = "The name to assign the IAM policy and role that allows read-only access to the WAS DB in the User Services account."
+  description = "The name to assign the IAM policy and role that allows read-only access to the WAS DynamoDB tables in the User Services account."
   type        = string
 }
 
 variable "read_write_policy_role_description" {
   default     = "Allows read-write access to the WAS DB in the User Services account."
-  description = "The description to associate with the IAM policy and role that allows read-write access to the WAS DB in the User Services account."
+  description = "The description to associate with the IAM policy and role that allows read-write access to the WAS DynamoDB tables in the User Services account."
   type        = string
 }
 
 variable "read_write_policy_role_name" {
   default     = "WAS-DB-ReadWrite"
-  description = "The name to assign the IAM policy and role that allows read-write access to the WAS DB in the User Services account."
+  description = "The name to assign the IAM policy and role that allows read-write access to the WAS DynamoDB tables in the User Services account."
   type        = string
 }
 
