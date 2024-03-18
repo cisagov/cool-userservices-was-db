@@ -28,6 +28,11 @@ variable "provisionwasdb_policy_name" {
   type        = string
 }
 
+variable "read_only_policy_role_description" {
+  default     = "Allows read-only access to the WAS DB in the User Services account."
+  description = "The description to associate with the IAM policy and role that allows read-only access to the WAS DynamoDB tables in the User Services account."
+  type        = string
+}
 
 variable "read_only_policy_role_name" {
   default     = "WAS-DB-ReadOnly"
@@ -82,12 +87,6 @@ variable "stakeholders_table_read_capacity" {
   type        = number
 }
 
-variable "read_only_policy_role_description" {
-  default     = "Allows read-only access to the WAS DB in the User Services account."
-  description = "The description to associate with the IAM policy and role that allows read-only access to the WAS DynamoDB tables in the User Services account."
-  type        = string
-}
-
 variable "stakeholders_table_sort_key" {
   default     = ""
   description = "The name of the stakeholders DynamoDB table sort (range) key."
@@ -105,15 +104,15 @@ variable "stakeholders_table_sort_key_type" {
   }
 }
 
-variable "tags" {
-  default     = {}
-  description = "Tags to apply to all AWS resources created."
-  type        = map(string)
-}
-
 variable "stakeholders_table_write_capacity" {
   default     = 5
   description = "The number of write units for the stakeholders DynamoDB table."
   type        = number
 
+}
+
+variable "tags" {
+  default     = {}
+  description = "Tags to apply to all AWS resources created."
+  type        = map(string)
 }
