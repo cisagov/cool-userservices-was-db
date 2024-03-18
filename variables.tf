@@ -52,6 +52,65 @@ variable "read_write_policy_role_name" {
   type        = string
 }
 
+variable "reports_table_name" {
+  default     = "reports"
+  description = "The name of the reports DynamoDB table."
+  type        = string
+}
+
+variable "reports_table_partition_key" {
+  default     = "id"
+  description = "The name of the reports DynamoDB table partition (hash) key.  It's best to choose an attribute with a wide range of values that is likely to have evenly distributed access patterns."
+  type        = string
+}
+
+variable "reports_table_partition_key_type" {
+  default     = "S"
+  description = "The data type of the reports DynamoDB table partition (hash) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values."
+  type        = string
+
+  validation {
+    condition     = contains(["B", "BOOL", "BS", "L", "M", "N", "NS", "NULL", "S", "SS"], var.reports_table_partition_key_type)
+    error_message = "The partition key type must be one of the following valid values: B, BOOL, BS, L, M, N, NS, NULL, S, SS"
+  }
+}
+
+variable "reports_table_point_in_time_recovery" {
+  default     = false
+  description = "Whether to enable point-in-time recovery for the reports DynamoDB table."
+  type        = bool
+}
+
+variable "reports_table_read_capacity" {
+  default     = 5
+  description = "The number of read units for the reports DynamoDB table."
+  type        = number
+}
+
+variable "reports_table_sort_key" {
+  default     = ""
+  description = "The name of the reports DynamoDB table sort (range) key."
+  type        = string
+}
+
+variable "reports_table_sort_key_type" {
+  default     = "S"
+  description = "The data type of the reports DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values."
+  type        = string
+
+  validation {
+    condition     = contains(["B", "BOOL", "BS", "L", "M", "N", "NS", "NULL", "S", "SS"], var.reports_table_sort_key_type)
+    error_message = "The sort key type must be one of the following valid values: B, BOOL, BS, L, M, N, NS, NULL, S, SS"
+  }
+}
+
+variable "reports_table_write_capacity" {
+  default     = 5
+  description = "The number of write units for the reports DynamoDB table."
+  type        = number
+
+}
+
 variable "stakeholders_table_name" {
   default     = "stakeholders"
   description = "The name of the stakeholders DynamoDB table."
