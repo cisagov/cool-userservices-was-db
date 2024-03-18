@@ -40,7 +40,8 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_dynamodb_table.was](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
+| [aws_dynamodb_table.stakeholders_with_sort_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
+| [aws_dynamodb_table.stakeholders_without_sort_key](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_iam_policy.provisionwasdb_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.read_only](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
 | [aws_iam_policy.read_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -64,21 +65,21 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | aws\_region | The AWS region to deploy into (e.g. us-east-1). | `string` | `"us-east-1"` | no |
-| partition\_key | The name of the DynamoDB table partition (hash) key.  It's best to choose an attribute with a wide range of values that is likely to have evenly distributed access patterns. | `string` | `"id"` | no |
-| partition\_key\_type | The data type of the DynamoDB table partition (hash) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
-| point\_in\_time\_recovery | Whether to enable point-in-time recovery for the DynamoDB table. | `bool` | `false` | no |
-| provisionwasdb\_policy\_description | The description to associate with the IAM policy that allows provisioning of the WAS DB in the User Services account. | `string` | `"Allows provisioning of the WAS DB in the User Services account."` | no |
-| provisionwasdb\_policy\_name | The name to assign the IAM policy that allows provisioning of the WAS DB in the User Services account. | `string` | `"ProvisionWASDB"` | no |
-| read\_capacity | The number of read units for the DynamoDB table. | `number` | `5` | no |
-| read\_only\_policy\_role\_description | The description to associate with the IAM policy and role that allows read-only access to the WAS DB in the User Services account. | `string` | `"Allows read-only access to the WAS DB in the User Services account."` | no |
-| read\_only\_policy\_role\_name | The name to assign the IAM policy and role that allows read-only access to the WAS DB in the User Services account. | `string` | `"WAS-DB-ReadOnly"` | no |
-| read\_write\_policy\_role\_description | The description to associate with the IAM policy and role that allows read-write access to the WAS DB in the User Services account. | `string` | `"Allows read-write access to the WAS DB in the User Services account."` | no |
-| read\_write\_policy\_role\_name | The name to assign the IAM policy and role that allows read-write access to the WAS DB in the User Services account. | `string` | `"WAS-DB-ReadWrite"` | no |
-| sort\_key | The name of the DynamoDB table sort (range) key. | `string` | `"name"` | no |
-| sort\_key\_type | The data type of the DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
-| table\_name | The name of the DynamoDB table. | `string` | `"was"` | no |
+| provisionwasdb\_policy\_description | The description to associate with the IAM policy that allows provisioning of the WAS DynamoDB tables in the User Services account. | `string` | `"Allows provisioning of the WAS DB in the User Services account."` | no |
+| provisionwasdb\_policy\_name | The name to assign the IAM policy that allows provisioning of the WAS DynamoDB tables in the User Services account. | `string` | `"ProvisionWASDB"` | no |
+| read\_only\_policy\_role\_description | The description to associate with the IAM policy and role that allows read-only access to the WAS DynamoDB tables in the User Services account. | `string` | `"Allows read-only access to the WAS DB in the User Services account."` | no |
+| read\_only\_policy\_role\_name | The name to assign the IAM policy and role that allows read-only access to the WAS DynamoDB tables in the User Services account. | `string` | `"WAS-DB-ReadOnly"` | no |
+| read\_write\_policy\_role\_description | The description to associate with the IAM policy and role that allows read-write access to the WAS DynamoDB tables in the User Services account. | `string` | `"Allows read-write access to the WAS DB in the User Services account."` | no |
+| read\_write\_policy\_role\_name | The name to assign the IAM policy and role that allows read-write access to the WAS DynamoDB tables in the User Services account. | `string` | `"WAS-DB-ReadWrite"` | no |
+| stakeholders\_table\_name | The name of the stakeholders DynamoDB table. | `string` | `"stakeholders"` | no |
+| stakeholders\_table\_partition\_key | The name of the stakeholders DynamoDB table partition (hash) key.  It's best to choose an attribute with a wide range of values that is likely to have evenly distributed access patterns. | `string` | `"id"` | no |
+| stakeholders\_table\_partition\_key\_type | The data type of the stakeholders DynamoDB table partition (hash) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
+| stakeholders\_table\_point\_in\_time\_recovery | Whether to enable point-in-time recovery for the stakeholders DynamoDB table. | `bool` | `false` | no |
+| stakeholders\_table\_read\_capacity | The number of read units for the stakeholders DynamoDB table. | `number` | `5` | no |
+| stakeholders\_table\_sort\_key | The name of the stakeholders DynamoDB table sort (range) key. | `string` | `""` | no |
+| stakeholders\_table\_sort\_key\_type | The data type of the stakeholders DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
+| stakeholders\_table\_write\_capacity | The number of write units for the stakeholders DynamoDB table. | `number` | `5` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
-| write\_capacity | The number of write units for the DynamoDB table. | `number` | `5` | no |
 
 ## Outputs ##
 
@@ -86,7 +87,7 @@ No modules.
 |------|-------------|
 | read\_only\_role | The WAS database read-only role. |
 | read\_write\_role | The WAS database read-write role. |
-| was\_db\_table | The WAS database table. |
+| stakeholders\_table | The WAS stakeholders DynamoDB table. |
 <!-- END_TF_DOCS -->
 
 ## Notes ##
