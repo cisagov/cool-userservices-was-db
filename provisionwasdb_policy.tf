@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "provisionwasdb_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:dynamodb:${var.aws_region}:${local.userservices_account_id}:table/${var.table_name}",
+      "arn:aws:dynamodb:${var.aws_region}:${local.userservices_account_id}:table/${var.stakeholders_table_name}",
     ]
   }
 }
