@@ -28,7 +28,7 @@ data "aws_iam_policy_document" "read_only_doc" {
     ]
 
     resources = [
-      replace(local.stakeholders_table_arn, "table/${local.stakeholders_table_name}", "table/*"),
+      replace(local.stakeholders_table_arn, "table/${var.stakeholders_table_name}", "table/*"),
     ]
   }
 
