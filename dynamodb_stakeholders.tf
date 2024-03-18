@@ -1,4 +1,5 @@
-# The DynamoDB table used to store WAS (Web Application Scanning) data.
+# The DynamoDB table used to store WAS (Web Application Scanning) stakeholder
+# data.
 #
 # If the sort (range) key variable is empty, then the table is created with only
 # a partition (hash) key.  Otherwise, the table is created with both a partition
