@@ -1,24 +1,19 @@
-output "arn" {
-  value       = aws_instance.example.arn
-  description = "The EC2 instance ARN."
+output "read_only_role" {
+  description = "The WAS database read-only role."
+  value       = aws_iam_role.read_only
 }
 
-output "availability_zone" {
-  value       = aws_instance.example.availability_zone
-  description = "The AZ where the EC2 instance is deployed."
+output "read_write_role" {
+  description = "The WAS database read-write role."
+  value       = aws_iam_role.read_write
 }
 
-output "id" {
-  value       = aws_instance.example.id
-  description = "The EC2 instance ID."
+output "reports_table" {
+  description = "The WAS reports DynamoDB table."
+  value       = var.reports_table_sort_key == "" ? aws_dynamodb_table.reports_without_sort_key[0] : aws_dynamodb_table.reports_with_sort_key[0]
 }
 
-output "private_ip" {
-  value       = aws_instance.example.private_ip
-  description = "The private IP of the EC2 instance."
-}
-
-output "subnet_id" {
-  value       = aws_instance.example.subnet_id
-  description = "The ID of the subnet where the EC2 instance is deployed."
+output "stakeholders_table" {
+  description = "The WAS stakeholders DynamoDB table."
+  value       = var.stakeholders_table_sort_key == "" ? aws_dynamodb_table.stakeholders_without_sort_key[0] : aws_dynamodb_table.stakeholders_with_sort_key[0]
 }
