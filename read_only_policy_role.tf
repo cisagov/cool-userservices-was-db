@@ -28,10 +28,8 @@ data "aws_iam_policy_document" "read_only_doc" {
       "dynamodb:ListTables",
     ]
 
-    # Since we are allowing the user to list all DynamoDB tables, we only need
-    # to choose one of our tables to use as the basis for this resource.
     resources = [
-      replace(local.stakeholders_table_arn, "table/${var.stakeholders_table_name}", "table/*"),
+      "arn:aws:dynamodb:${var.aws_region}:${local.userservices_account_id}:table/*",
     ]
   }
 
