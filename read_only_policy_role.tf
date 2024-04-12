@@ -16,8 +16,8 @@ data "aws_iam_policy_document" "read_only_doc" {
     ]
 
     resources = [
-      local.reports_table_arn,
-      local.stakeholders_table_arn,
+      aws_dynamodb_table.reports.arn,
+      aws_dynamodb_table.stakeholders.arn,
     ]
   }
 

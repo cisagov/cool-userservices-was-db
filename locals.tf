@@ -28,13 +28,42 @@ locals {
   # names.
   caller_user_name = split("/", data.aws_caller_identity.current.arn)[1]
 
-  # Since the reports and stakeholders tables may or may not have a sort key,
-  # there are potentially two different Terraform resources for each table
-  # (even though only one will be created).  To account for this, we create a
-  # local variable for each table's ARN to be used in the IAM policy documents.
-  reports_table_arn = var.reports_table_sort_key == "" ? aws_dynamodb_table.reports_without_sort_key[0].arn : aws_dynamodb_table.reports_with_sort_key[0].arn
+  # If the reports or stakeholders table has a sort (range) key, then the table
+  # attributes must include both the partition (hash) key and the sort key.
+  # Otherwise, only the partition key is needed.
+  reports_table_attributes = var.reports_table_sort_key != "" ? {
+    partition_key = {
+      name = var.reports_table_partition_key
+      type = var.reports_table_partition_key_type
+    }
 
-  stakeholders_table_arn = var.stakeholders_table_sort_key == "" ? aws_dynamodb_table.stakeholders_without_sort_key[0].arn : aws_dynamodb_table.stakeholders_with_sort_key[0].arn
+    range_key = {
+      name = var.reports_table_sort_key
+      type = var.reports_table_sort_key_type
+    }
+    } : {
+    partition_key = {
+      name = var.reports_table_partition_key
+      type = var.reports_table_partition_key_type
+    }
+  }
+
+  stakeholders_table_attributes = var.stakeholders_table_sort_key != "" ? {
+    partition_key = {
+      name = var.stakeholders_table_partition_key
+      type = var.stakeholders_table_partition_key_type
+    }
+
+    range_key = {
+      name = var.stakeholders_table_sort_key
+      type = var.stakeholders_table_sort_key_type
+    }
+    } : {
+    partition_key = {
+      name = var.stakeholders_table_partition_key
+      type = var.stakeholders_table_partition_key_type
+    }
+  }
 
   # Find the Users account by name and extract the account ID
   users_account_id = [
