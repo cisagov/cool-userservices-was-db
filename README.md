@@ -3,7 +3,8 @@
 [![GitHub Build Status](https://github.com/cisagov/cool-userservices-was-db/workflows/build/badge.svg)](https://github.com/cisagov/cool-userservices-was-db/actions)
 
 This is a Terraform deployment for creating the Web Application Scanning (WAS)
-database tables in the COOL User Services account.
+[DynamoDB](https://aws.amazon.com/dynamodb/) database tables in the COOL User
+Services account.
 
 ## Pre-requisites ##
 
