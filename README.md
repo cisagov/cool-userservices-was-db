@@ -89,6 +89,7 @@ No modules.
 | stakeholders\_table\_sort\_key\_type | The data type of the stakeholders DynamoDB table sort (range) key.  See `https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypeDescriptors` for a list of valid values. | `string` | `"S"` | no |
 | stakeholders\_table\_write\_capacity | The number of write units for the stakeholders DynamoDB table. | `number` | `5` | no |
 | tags | Tags to apply to all AWS resources created. | `map(string)` | `{}` | no |
+| terraform\_state\_bucket | The name of the S3 bucket where Terraform state is stored. | `string` | n/a | yes |
 
 ## Outputs ##
 
