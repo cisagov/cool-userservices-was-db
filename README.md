@@ -1,6 +1,8 @@
 # cool-userservices-was-db #
 
 [![GitHub Build Status](https://github.com/cisagov/cool-userservices-was-db/workflows/build/badge.svg)](https://github.com/cisagov/cool-userservices-was-db/actions)
+[![License](https://img.shields.io/github/license/cisagov/cool-userservices-was-db)](https://spdx.org/licenses/)
+[![CodeQL](https://github.com/cisagov/cool-userservices-was-db/workflows/CodeQL/badge.svg)](https://github.com/cisagov/cool-userservices-was-db/actions/workflows/codeql-analysis.yml)
 
 This is a Terraform deployment for creating the Web Application Scanning (WAS)
 [DynamoDB](https://aws.amazon.com/dynamodb/) database tables in the COOL User
