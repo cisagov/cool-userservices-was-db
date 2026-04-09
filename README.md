@@ -22,14 +22,14 @@ Services account.
 ## Requirements ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | terraform | ~> 1.1 |
 | aws | ~> 6.7 |
 
 ## Providers ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | aws | ~> 6.7 |
 | aws.organizationsreadonly | ~> 6.7 |
 | aws.userservicesprovisionaccount | ~> 6.7 |
@@ -42,7 +42,7 @@ No modules.
 ## Resources ##
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_dynamodb_table.reports](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_dynamodb_table.stakeholders](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/dynamodb_table) | resource |
 | [aws_iam_policy.provisionwasdb_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
@@ -66,7 +66,7 @@ No modules.
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | aws\_region | The AWS region to deploy into (e.g. us-east-1). | `string` | `"us-east-1"` | no |
 | provisionwasdb\_policy\_description | The description to associate with the IAM policy that allows provisioning of the WAS DynamoDB tables in the User Services account. | `string` | `"Allows provisioning of the WAS DB in the User Services account."` | no |
 | provisionwasdb\_policy\_name | The name to assign the IAM policy that allows provisioning of the WAS DynamoDB tables in the User Services account. | `string` | `"ProvisionWASDB"` | no |
@@ -96,7 +96,7 @@ No modules.
 ## Outputs ##
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | read\_only\_role | The WAS database read-only role. |
 | read\_write\_role | The WAS database read-write role. |
 | reports\_table | The WAS reports DynamoDB table. |
